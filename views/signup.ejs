@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .option {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .option button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      border-radius: 3px;
+      border: none;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .signup-form {
+      display: none;
+    }
+
+    .signup-form.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      padding: 10px;
+      border-radius: 3px;
+      border: none;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Signup Page</h1>
+    <div class="option">
+      <button onclick="showSignupForm('driver')">Signup as Driver</button>
+      <button onclick="showSignupForm('passenger')">Signup as Passenger</button>
+    </div>
+    <div class="signup-form" id="driverSignupForm">
+      <h2>Driver Signup</h2>
+      <form action="/driversignup" method="post">
+        <div class="form-group">
+          <label for="driverName">Username</label>
+          <input type="text" id="driverName" name="driverUsername" required>
+        </div>
+        <div class="form-group">
+          <label for="driverLicense">Password</label>
+          <input type="password" id="driverLicense" name="driverPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="driverLicense">Full Name</label>
+          <input type="text" id="driverLicense" name="driverFullName" required>
+        </div>
+        <div class="form-group">
+          <label for="driverLicense">Car Name</label>
+          <input type="text" id="driverLicense" name="driverCarName" required>
+        </div>
+        <div class="form-group">
+          <label for="driverLicense">Max Seats of car</label>
+          <input type="text" id="driverLicense" name="driverCarSeats" required>
+        </div>
+        <button type="submit">Signup</button>
+      </form>
+    </div>
+    <div class="signup-form" id="passengerSignupForm">
+      <h2>Passenger Signup</h2>
+      <form action="/passengersignup" method="post">
+        <div class="form-group">
+          <label for="passengerName">Username</label>
+          <input type="text" id="passengerName" name="passengerUsername" required>
+        </div>
+        <div class="form-group">
+          <label for="passengerEmail">Password</label>
+          <input type="password" id="passengerEmail" name="passengerPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="passengerEmail">Full Name</label>
+          <input type="password" id="passengerEmail" name="passengerFullName" required>
+        </div>
+        <button type="submit">Signup</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function showSignupForm(signupType) {
+      const driverSignupForm = document.getElementById("driverSignupForm");
+      const passengerSignupForm = document.getElementById("passengerSignupForm");
+
+      if (signupType === "driver") {
+        driverSignupForm.classList.add("active");
+        passengerSignupForm.classList.remove("active");
+      } else if (signupType === "passenger") {
+        driverSignupForm.classList.remove("active");
+        passengerSignupForm.classList.add("active");
+      }
+    }
+  </script>
+</body>
+</html>

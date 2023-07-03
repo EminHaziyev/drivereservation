@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driver Dashboard</title>
+  <style>
+    /* Add some basic styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    .tab-container {
+      margin-top: 20px;
+    }
+    
+    .tab-container .tab {
+      display: none;
+    }
+    
+    .tab-container .tab.active {
+      display: block;
+    }
+    
+    .tab-container .tab-heading {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #f1f1f1;
+      cursor: pointer;
+    }
+    
+    .drive-card {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+    }
+    
+    .drive-card h3 {
+      margin-top: 0;
+    }
+    
+    .drive-card p {
+      margin-bottom: 5px;
+    }
+    
+    .create-drive-form {
+      margin-top: 20px;
+    }
+    
+    .create-drive-form label,
+    .create-drive-form input[type="text"],
+    .create-drive-form input[type="submit"] {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .create-drive-form input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    // JavaScript to handle tab switching
+    function switchTab(tabName) {
+      var tabs = document.getElementsByClassName("tab");
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove("active");
+      }
+      
+      var tabContents = document.getElementsByClassName("tab-content");
+      for (var i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = "none";
+      }
+      
+      document.getElementById(tabName).classList.add("active");
+      document.getElementById(tabName + "-content").style.display = "block";
+    }
+  </script>
+</head>
+<body>
+  <h1>Driver Dashboard</h1>
+
+  <!-- Tab Container -->
+  <div class="tab-container">
+    <div class="tab-heading" onclick="switchTab('created-drives')">Created Drives</div>
+    <div class="tab-heading" onclick="switchTab('new-drive')">Create New Drive</div>
+
+    
+    <div id="created-drives" class="tab active">
+      <% foundDrives.forEach(drive => { %>
+          <%const pasengers = drive.passengers%>
+        <div class="drive-card">
+        
+          <h3 id="id"><%= drive.whereFrom %> - <%= drive.whereTo %></h3>
+          
+          <p><%= drive.timeAndDate %></p>
+          <p><%= drive.cost %> AZN</p>
+          <% pasengers.forEach(passenger => { %>
+            <h4><%= passenger.fullName %></h4>
+            
+          <% }); %>
+          
+        </div>
+
+      <% }); %>
+      
+      <!-- Add more drive cards dynamically -->
+    </div>
+
+    <!-- New Drive Tab -->
+    <div id="new-drive" class="tab">
+      <div class="create-drive-form">
+        <h2>Create New Drive</h2>
+        <form action="/createDrive" , method="post">
+          <label for="date">From</label>
+          <input type="text"  name="from" placeholder="City" required>
+
+          <label for="origin">Destination</label>
+          <input type="text" name="destination" placeholder="City" required>
+
+          <label for="destination">Time and Date</label>
+          <input type="text" id="destination" name="time" placeholder="12:00 12.06.2023" required>
+
+          <label for="destination">Cost (AZN)</label>
+          <input type="text" id="destination" name="cost" placeholder="15" required>
+
+          <input type="submit" value="Create Drive">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Set the default active tab
+    switchTab('created-drives');
+  </script>
+</body>
+</html>
